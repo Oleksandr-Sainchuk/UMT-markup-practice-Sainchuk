@@ -1,0 +1,224 @@
+@import "./reset.css";
+@import "./colors.css";
+@import "./fonts.css";
+
+body {
+  font-family: "Heebo", sans-serif;
+  font-weight: 400;
+  line-height: 150%;
+  letter-spacing: 0%;
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
+}
+
+/* Shared */
+
+.text {
+  font-size: var(--medium);
+  line-height: 150%;
+  letter-spacing: 0%;
+}
+
+.section-title {
+  font-family: "Roboto Slab", sans-serif;
+  font-weight: 500;
+  font-size: var(--heading);
+  line-height: 120%;
+  letter-spacing: -1%;
+}
+
+.primary-icon {
+  fill: var(--primary-text);
+  width: 24px;
+  height: 24px;
+}
+
+.icon-large {
+  width: 48px;
+  height: 48px;
+}
+
+.icon-medium {
+  width: 32px;
+  height: 32px;
+}
+
+.primary-button {
+  color: inherit;
+  font-weight: 500;
+  font-size: var(--regular);
+  padding: 8px 20px;
+  background-color: var(--primary-button-bg);
+  border-top-width: 1.5px;
+  border-right-width: 1.5px;
+  border-left-width: 1.5px;
+  border-bottom-width: 4px;
+  border-radius: 6px;
+  border-style: solid;
+  border-color: var(--primary-button-border-color);
+}
+
+/* Header */
+
+.navigation-list {
+  font-size: 16px;
+}
+
+/* Hero section */
+
+.hero-title {
+  font-family: "Roboto Slab", sans-serif;
+  font-weight: 500;
+  font-size: var(--hero-title);
+  line-height: 120%;
+  letter-spacing: -1%;
+}
+
+.order-button__big {
+  padding: 10px 24px;
+}
+
+.more-button {
+  color: inherit;
+  font-weight: 500;
+  font-size: var(--regular);
+  padding: 10px 24px;
+  background-color: transparent;
+  border-top-width: 1.5px;
+  border-right-width: 1.5px;
+  border-left-width: 1.5px;
+  border-bottom-width: 4px;
+  border-radius: 6px;
+  border-style: solid;
+  border-color: var(--secondary-button-border-color);
+}
+
+/* About */
+
+.main-image {
+  width: 644px;
+  height: 485px;
+}
+
+/* Advantage */
+
+.advantage-title {
+  font-family: "Roboto Slab", sans-serif;
+  font-weight: 500;
+  font-size: var(--heading-small);
+  line-height: 130%;
+  letter-spacing: -1%;
+}
+
+.advantage-subtitle {
+  font-size: var(--regular);
+}
+
+/* Catalogue */
+
+.select {
+  border-radius: 6px;
+  border-color: var(--select-border-color);
+}
+
+.catalogue-item-image {
+  width: 304px;
+  height: 227px;
+}
+
+.catalogue-item-title {
+  font-weight: 600;
+  font-size: var(--medium);
+}
+
+.catalogue-item-text {
+  font-size: var(--small);
+}
+
+.catalogue-item-price {
+  font-weight: 600;
+  font-size: var(--large);
+}
+
+.catalogue-more-button {
+  padding-block: 8px;
+}
+
+.catalogue-item-show-more-button {
+  padding: 10px 24px;
+}
+
+/* Feedback */
+
+.feedback-star-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.feedback-star-icon__filled {
+  width: 20px;
+  height: 20px;
+  fill: var(--primary-button-bg);
+}
+
+.feedback-star-icon__empty {
+  width: 20px;
+  height: 20px;
+  fill: transparent;
+  stroke: var(--primary-button-bg);
+}
+
+.feedback-person-name {
+  font-weight: 600;
+  font-size: var(--regular);
+}
+
+.feedback-pagination-button {
+  width: 48px;
+  height: 48px;
+  background-color: var(--pagination-button-bg);
+  border-radius: 4px;
+  border: 1px solid var(--pagination-button-border-color);
+}
+
+/* Gallery */
+
+.gallery-item-image {
+  max-width: 644px;
+}
+
+/* Contacts */
+
+.contact-text {
+  font-family: "Roboto Slab", sans-serif;
+  font-weight: 500;
+  font-size: var(--large);
+  line-height: 140%;
+  letter-spacing: -1%;
+  font-style: normal;
+}
+
+.contact-value {
+  font-size: var(--regular);
+}
+
+.contact-value__underline {
+  text-decoration: underline;
+}
+
+/* Footer */
+
+.footer-map {
+  border-radius: 16px;
+  width: 832px;
+  height: 516px;
+  border: none;
+}
+
+.footer-navigation-list {
+  font-weight: 600;
+}
+
+.footer-caption {
+  font-size: var(--small);
+}
