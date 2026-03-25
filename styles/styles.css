@@ -9,6 +9,7 @@ body {
   letter-spacing: 0%;
   background-color: var(--primary-bg);
   color: var(--primary-text);
+  overflow-x: hidden;
 }
 
 /* Shared */
