@@ -394,6 +394,7 @@ select:open::picker-icon {
   border-radius: 0 0 8px 8px;
   border: 1px solid var(--select-focused-border-color);
   padding: 8px;
+  top: calc(anchor(bottom));
 }
 
 option::checkmark {
