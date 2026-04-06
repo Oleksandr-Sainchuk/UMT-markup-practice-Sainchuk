@@ -33,16 +33,17 @@
           <ul class="navigation-list">
             <li><a href="#about" class="general-link navigation-list-link">Про нас</a></li>
             <li><a href="#advantages" class="general-link navigation-list-link">Переваги</a></li>
-            <li><a href="#catalogues" class="general-link navigation-list-link">Каталог</a></li>
+            <li><a href="#catalogue" class="general-link navigation-list-link">Каталог</a></li>
             <li><a href="#feedback" class="general-link navigation-list-link">Відгуки</a></li>
             <li><a href="#gallery" class="general-link navigation-list-link">Галерея</a></li>
             <li>
               <a href="#contacts" class="general-link navigation-list-link">Контакти</a>
             </li>
           </ul>
-          <button class="menu-button">
-            <svg class="menu-icon">
-              <use href="./icons/sprite.svg#menu"></use>
+          <button class="menu-button" aria-expanded="false" aria-controls="mobile-menu" data-menu-button>
+            <svg class="menu-icon" aria-label="Mobile menu toggle">
+              <use href="./icons/sprite.svg#menu" class="menu-icon__burger"></use>
+              <use href="./icons/sprite.svg#close" class="menu-icon__close"></use>
             </svg>
           </button>
         </nav>
@@ -423,7 +424,7 @@
           <ul class="navigation-list footer-navigation-list">
             <li><a href="#about" class="general-link footer-navigation-link">Про нас</a></li>
             <li><a href="#advantages" class="general-link footer-navigation-link">Переваги</a></li>
-            <li><a href="#catalogues" class="general-link footer-navigation-link">Каталог</a></li>
+            <li><a href="#catalogue" class="general-link footer-navigation-link">Каталог</a></li>
             <li><a href="#feedback" class="general-link footer-navigation-link">Відгуки</a></li>
             <li><a href="#gallery" class="general-link footer-navigation-link">Галерея</a></li>
             <li><a href="#contacts" class="general-link footer-navigation-link">Контакти</a></li>
@@ -448,6 +449,20 @@
         <p class="footer-caption">&copy; 2025 Майстерня Печей. Усі права захищені.</p>
       </div>
     </footer>
+    <div class="mobile-menu" id="mobile-menu" aria-labelledby="Mobile menu toggle" data-menu>
+      <nav class="menu-navigation">
+        <ul class="menu-navigation-list">
+          <li><a href="#about" class="general-link menu-navigation-link">Про нас</a></li>
+          <li><a href="#advantages" class="general-link menu-navigation-link">Переваги</a></li>
+          <li><a href="#catalogue" class="general-link menu-navigation-link">Каталог</a></li>
+          <li><a href="#feedback" class="general-link menu-navigation-link">Відгуки</a></li>
+          <li><a href="#gallery" class="general-link menu-navigation-link">Галерея</a></li>
+          <li><a href="#contacts" class="general-link menu-navigation-link">Контакти</a></li>
+        </ul>
+      </nav>
+      <button type="button" class="primary-button menu-action-button">Замовити</button>
+    </div>
+    <script src="./js//mobile-menu.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
       AOS.init();

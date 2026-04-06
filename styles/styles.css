@@ -3,6 +3,11 @@
 @import "./fonts.css";
 
 /* Shared */
+
+html:has(body.menu-open) {
+  overflow: hidden;
+}
+
 body {
   font-family: "Heebo", sans-serif;
   font-weight: 400;
@@ -176,6 +181,24 @@ body {
   margin-right: auto;
   margin-left: auto;
   fill: var(--primary-text);
+}
+
+.menu-icon__close {
+  opacity: 0;
+  transition: opacity 250ms ease-in-out;
+}
+
+.menu-icon__burger {
+  opacity: 1;
+  transition: opacity 250ms ease-in-out;
+}
+
+.menu-button.is-open .menu-icon__close {
+  opacity: 1;
+}
+
+.menu-button.is-open .menu-icon__burger {
+  opacity: 0;
 }
 
 .header-button {
@@ -641,6 +664,53 @@ option::checkmark {
   text-align: center;
 }
 
+/* Mobile Menu */
+
+.mobile-menu {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  right: 0;
+  transform: translateX(100%);
+  margin-top: 64px;
+  height: calc(100vh - 64px);
+  width: 100vw;
+  z-index: 2;
+  padding: 16px 20px;
+  overflow-y: auto;
+  background-color: var(--primary-bg);
+
+  transition: transform 250ms ease-in-out;
+}
+
+.mobile-menu.is-open {
+  transform: translateX(0);
+}
+
+.menu-navigation {
+  margin-bottom: 24px;
+}
+
+.menu-navigation-list {
+  font-weight: 600;
+  font-size: var(--medium);
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+}
+
+.menu-action-button {
+  width: 100%;
+  max-width: 335px;
+  margin: 0 auto;
+}
+
+.menu-navigation-link {
+  padding: 8px 0;
+}
+
 /* Tablet styles */
 @media screen and (min-width: 768px) {
   /* Shared */
@@ -777,6 +847,16 @@ option::checkmark {
 
   .footer-navigation-list {
     flex-direction: row;
+  }
+
+  /* Mobile Menu */
+
+  .mobile-menu {
+    padding: 16px 32px;
+  }
+
+  .menu-action-button {
+    width: fit-content;
   }
 }
 
