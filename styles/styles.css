@@ -211,6 +211,49 @@ body {
   max-width: 311px;
 }
 
+.input-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+label {
+  font-size: var(--regular);
+  color: var(--primary-text);
+}
+
+input,
+textarea {
+  border-radius: 6px;
+  border: 1px solid var(--select-border-color);
+  height: 40px;
+  padding: 8px 12px;
+  align-items: center;
+  transition: border-color 250ms ease-in-out;
+  width: 100%;
+  cursor: pointer;
+  background-color: transparent;
+  color: var(--primary-text);
+}
+
+textarea {
+  height: auto;
+}
+
+input::placeholder,
+textarea::placeholder {
+  font-size: var(--regular);
+  color: var(--input-placeholder);
+}
+
+input:focus-visible,
+input:hover,
+textarea:focus-visible,
+textarea:hover {
+  outline: none;
+  border-color: var(--input-focused-border);
+}
+
 /* Header */
 
 .header .container {
@@ -803,6 +846,32 @@ option::checkmark {
   background-size: cover;
 }
 
+/* Order Modal */
+
+.order-modal-container {
+  height: auto;
+}
+
+.order-modal-title {
+  font-family: "Roboto Slab", sans-serif;
+  font-weight: 500;
+  font-size: var(--heading);
+  text-align: center;
+  line-height: 120%;
+}
+
+.order-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.order-modal-form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
 @media (-webkit-min-device-pixel-ration: 2), (min-resolution: 192dpi) {
   .detail-modal-container {
     background-image: url("../images/detail-modal-bg@2x.png");
@@ -1020,6 +1089,17 @@ option::checkmark {
 
   .detail-modal-image {
     width: auto;
+  }
+
+  /* Order modal */
+
+  .order-modal-container {
+    max-width: 644px;
+  }
+
+  .order-modal-cta {
+    width: fit-content;
+    margin: 0 auto;
   }
 }
 

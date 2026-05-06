@@ -2,14 +2,27 @@ const catalogueList = document.getElementById("catalogue-list");
 const detailModal = document.getElementById("detail-modal");
 const closeButtons = document.querySelectorAll("#close-modal-button");
 const detailModalContent = document.getElementById("detail-modal-content");
+const orderModal = document.getElementById("order-modal");
+const orderButtons = document.querySelectorAll("#order-button");
+const orderModalForm = document.getElementById("order-modal-form");
 
 function toggleDetailModal() {
   detailModal.classList.toggle("is-open");
   document.body.classList.toggle("modal-open");
 }
 
+function toggleOrderModal() {
+  orderModal.classList.toggle("is-open");
+  document.body.classList.toggle("modal-open");
+}
+
 function closeDetailModal() {
   detailModal.classList.remove("is-open");
+  document.body.classList.remove("modal-open");
+}
+
+function closeOrderModal() {
+  orderModal.classList.remove("is-open");
   document.body.classList.remove("modal-open");
 }
 
@@ -42,7 +55,7 @@ catalogueList.addEventListener("click", (e) => {
                 numquam aliquam eaque consequatur corrupti facere, nulla eum culpa sequi doloribus quibusdam quasi
                 laboriosam provident dignissimos molestias fugiat.
               </p>
-              <button type="button" class="primary-button detail-modal-button">Придбати</button>
+              <button id="detail-modal-cta" type="button" class="primary-button detail-modal-button">Придбати</button>
             </div>`;
 
     detailModalContent.innerHTML = "";
@@ -55,6 +68,7 @@ catalogueList.addEventListener("click", (e) => {
 closeButtons.forEach((button) => {
   button.addEventListener("click", () => {
     closeDetailModal();
+    closeOrderModal();
   });
 });
 
@@ -62,4 +76,38 @@ detailModal.addEventListener("click", (e) => {
   if (e.target === e.currentTarget) {
     closeDetailModal();
   }
+});
+
+orderModal.addEventListener("click", (e) => {
+  if (e.target === e.currentTarget) {
+    closeOrderModal();
+  }
+});
+
+detailModalContent.addEventListener("click", (e) => {
+  if (e.target.id === "detail-modal-cta" || e.target.closest("#detail-modal-cta")) {
+    toggleDetailModal();
+    toggleOrderModal();
+  }
+});
+
+orderButtons.forEach((button) =>
+  button.addEventListener("click", () => {
+    toggleOrderModal();
+  })
+);
+
+orderModalForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(e.currentTarget);
+
+  const data = Object.fromEntries(formData.entries());
+
+  console.log("name", data.name);
+
+  alert(`Дякуємо, ${data.name}! Ми зателефонуємо вам за номером ${data.phone}.`);
+
+  e.currentTarget.reset();
+  closeOrderModal();
 });
