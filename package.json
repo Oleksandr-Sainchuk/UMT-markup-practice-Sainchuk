@@ -6,12 +6,13 @@
   "scripts": {
     "dev": "vite",
     "preview": "vite preview",
+    "preview:pages": "GITHUB_ACTIONS=true GITHUB_REPOSITORY=Oleksandr-Sainchuk/umt-markup-practice-sainchuk VITE_API_MODE=static sh -c 'vite build && vite preview'",
     "build": "vite build",
     "api": "json-server db.json --port 3001"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com-Oleksandr-Sainchuk:Oleksandr-Sainchuk/UMT-markup-practice-Sainchuk.git"
+    "url": "git@github.com-Oleksandr-Sainchuk:Oleksandr-Sainchuk/umt-markup-practice-sainchuk.git"
   },
   "keywords": [ ],
   "author": "",

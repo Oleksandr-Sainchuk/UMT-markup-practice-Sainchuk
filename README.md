@@ -1,1 +1,1 @@
-# UMT-markup-practice-Sainchuk
+# umt-markup-practice-sainchuk
