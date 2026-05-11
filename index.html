@@ -153,7 +153,19 @@
               <option value="standart">Стандарт</option>
             </select>
           </div>
-          <ul class="catalogue-list" id="catalogue-list">
+          <div class="catalogue-list-shell" aria-busy="true">
+            <div
+              id="catalogue-loader"
+              class="content-loader content-loader--catalogue"
+              role="status"
+              aria-live="polite"
+              aria-label="Завантаження каталогу"
+            >
+              <span class="content-loader__spinner" aria-hidden="true"></span>
+            </div>
+            <ul class="catalogue-list" id="catalogue-list"></ul>
+          </div>
+          <!-- <ul class="catalogue-list" id="catalogue-list">
             <li class="catalogue-list-item">
               <img
                 class="catalogue-item-image"
@@ -322,7 +334,7 @@
                 Детальніше
               </button>
             </li>
-          </ul>
+          </ul> -->
           <button type="button" class="primary-button catalogue-item-show-more-button">Показати ще</button>
         </div>
       </section>
@@ -594,8 +606,10 @@
         </div>
       </div>
     </div>
-    <script src="./js/mobile-menu.js"></script>
-    <script src="./js/modal.js"></script>
+    <script type="module" src="/js/mobile-menu.js"></script>
+    <script type="module" src="/js/modal.js"></script>
+    <script type="module" src="/js/catalogue.js"></script>
+    <script type="module" src="/js/notifications.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
       AOS.init();
