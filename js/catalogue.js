@@ -1,14 +1,19 @@
 import { apiClient } from "./apiClient.js";
 import { showErrorNotification } from "./notifications.js";
+import { extractErrorMessage } from "./utils.js";
 
+const itemsPerPage = 12;
 const showMoreButtonDefaultLabel = "Показати ще";
-const loadingLabel = "Завантаження...";
+const showMoreButtonLoadingLabel = "Завантаження...";
 
 const catalogueList = document.getElementById("catalogue-list");
 const catalogueListShell = document.querySelector(".catalogue-list-shell");
 const catalogueLoader = document.getElementById("catalogue-loader");
 const categoryFilter = document.getElementById("filter");
 const showMoreButton = document.querySelector(".catalogue-item-show-more-button");
+
+let activeCategory = categoryFilter?.value ?? "all";
+let lastLoadedPage = 0;
 
 function formatPriceUah(priceDigits) {
   if (!priceDigits) {
@@ -42,6 +47,16 @@ function fillCatalogueListItem(listItem, product) {
   listItem.querySelector(".catalogue-item-price").textContent = formatPriceUah(product.price);
 }
 
+function setShowMoreButtonLoading(isLoading) {
+  if (!showMoreButton) {
+    return;
+  }
+
+  showMoreButton.disabled = isLoading;
+  showMoreButton.classList.toggle("is-loading", isLoading);
+  showMoreButton.textContent = isLoading ? showMoreButtonLoadingLabel : showMoreButtonDefaultLabel;
+}
+
 function setCatalogueInitialLoading(isLoading) {
   if (catalogueLoader) {
     catalogueLoader.hidden = !isLoading;
@@ -49,6 +64,23 @@ function setCatalogueInitialLoading(isLoading) {
   if (catalogueListShell) {
     catalogueListShell.setAttribute("aria-busy", isLoading ? "true" : "false");
   }
+}
+
+function updateShowMoreVisibility(meta) {
+  if (!showMoreButton || !catalogueList || !meta) {
+    return;
+  }
+
+  const currentPage = Number(meta.page);
+  const totalPagesAvailable = Number(meta.totalPages);
+  const catalogueItemsTotal = Number(meta.total);
+  const itemsRendered = catalogueList.children.length;
+
+  const paginationValid = currentPage && totalPagesAvailable && totalPagesAvailable >= 1;
+  const viewedLastPage = paginationValid && currentPage >= totalPagesAvailable;
+  const allItemsRendered = catalogueItemsTotal && catalogueItemsTotal > 0 && itemsRendered >= catalogueItemsTotal;
+
+  showMoreButton.hidden = !!viewedLastPage || !!allItemsRendered;
 }
 
 function renderCatalogueChunk(products, shouldReplaceList) {
@@ -67,17 +99,6 @@ function renderCatalogueChunk(products, shouldReplaceList) {
   for (let i = 0; i < products.length; i += 1) {
     fillCatalogueListItem(listItems[startIndex + i], products[i]);
   }
-}
-
-function extractErrorMessage(error) {
-  const serverMessage = error.response?.data?.error;
-  if (typeof serverMessage === "string") {
-    return serverMessage;
-  }
-  if (error.message) {
-    return error.message;
-  }
-  return "Сталася помилка під час запиту. Спробуйте пізніше.";
 }
 
 function normalizeJsonServerProductPage(responseBody, requestedPage) {
@@ -110,7 +131,7 @@ async function fetchCataloguePage(page, options) {
   const isInitialChunk = !appendItems;
 
   if (showButtonLoader) {
-    // setShowMoreButtonLoading(true);
+    setShowMoreButtonLoading(true);
   }
 
   if (isInitialChunk && catalogueList) {
@@ -119,26 +140,28 @@ async function fetchCataloguePage(page, options) {
   }
 
   try {
-    // const requestParams = {
-    //   _page: page,
-    //   _per_page: itemsPerRequest,
-    // };
-    // if (activeCategory !== "all") {
-    //   requestParams.category = activeCategory;
-    // }
+    const requestParams = {
+      _page: page,
+      _per_page: itemsPerPage,
+    };
+    if (activeCategory !== "all") {
+      requestParams.category = activeCategory;
+    }
 
-    const response = await apiClient.get("/products");
+    const response = await apiClient.get("/products", {
+      params: requestParams,
+    });
 
     const { products, meta } = normalizeJsonServerProductPage(response.data, 1);
 
     renderCatalogueChunk(products, !appendItems);
-    // lastLoadedPage = page;
-    // updateShowMoreVisibility(meta);
+    lastLoadedPage = page;
+    updateShowMoreVisibility(meta);
   } catch (error) {
     showErrorNotification(extractErrorMessage(error));
   } finally {
     if (showButtonLoader) {
-      //   setShowMoreButtonLoading(false);
+      setShowMoreButtonLoading(false);
     }
     if (isInitialChunk) {
       setCatalogueInitialLoading(false);
@@ -147,10 +170,21 @@ async function fetchCataloguePage(page, options) {
 }
 
 async function resetAndLoadFirstCataloguePage() {
+  lastLoadedPage = 0;
   if (showMoreButton) {
     showMoreButton.hidden = true;
   }
-  const result = await fetchCataloguePage(1, { appendItems: false, showButtonLoader: false });
+  await fetchCataloguePage(1, { appendItems: false, showButtonLoader: false });
+}
+
+function handleFilterChange() {
+  activeCategory = categoryFilter?.value;
+  resetAndLoadFirstCataloguePage();
+}
+
+function handleShowMoreClick() {
+  const nextPage = lastLoadedPage + 1;
+  fetchCataloguePage(nextPage, { appendItems: true, showButtonLoader: true });
 }
 
 function initCatalogueFromApi() {
@@ -158,8 +192,8 @@ function initCatalogueFromApi() {
     return;
   }
 
-  //   categoryFilter.addEventListener("change", handleFilterChange);
-  //   showMoreButton.addEventListener("click", handleShowMoreClick);
+  categoryFilter.addEventListener("change", handleFilterChange);
+  showMoreButton.addEventListener("click", handleShowMoreClick);
 
   resetAndLoadFirstCataloguePage();
 }
