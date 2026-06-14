@@ -687,6 +687,11 @@ option::checkmark {
   gap: 24px;
 }
 
+.order-modal-cta.is-loading {
+  opacity: 0.75;
+  pointer-events: none;
+}
+
 @media (-webkit-min-device-pixel-ration: 2), (min-resolution: 192dpi) {
   .detail-modal-container {
     background-image: url("../images/detail-modal-bg@2x.png");
